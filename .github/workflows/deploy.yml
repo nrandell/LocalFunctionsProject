@@ -22,7 +22,7 @@ env:
 jobs:
   build-and-deploy:
     env:
-      CONTAINER: ${NAMESPACE}/${IMAGE}:${TAG}
+      CONTAINER: ${{ env.NAMESPACE}}/${{ env.IMAGE }}:${{ env.TAG }}
 
     runs-on: ubuntu-latest
     steps:
