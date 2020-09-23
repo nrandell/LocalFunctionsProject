@@ -19,13 +19,14 @@ env:
   TAG: latest
   APP_NAME: nick-container
 
-jobs:
-  env:
-    CONTAINER: ${NAMESPACE}/${IMAGE}:${TAG}
+env:
+  CONTAINER: ${NAMESPACE}/${IMAGE}:${TAG}
 
+jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+        
       - name: "Checkout GitHub Action"
         uses: actions/checkout@master
 
