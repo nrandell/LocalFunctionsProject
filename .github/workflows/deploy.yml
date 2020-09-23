@@ -18,7 +18,7 @@ env:
   IMAGE: azurefunctionsimage
   TAG: latest
   APP_NAME: nick-container
-  CONTAINER: ${{ NAMESPACE }}/${{ IMAGE }}:${{ TAG }}
+  CONTAINER: ${{ env.NAMESPACE }}/${{ env.IMAGE }}:${{ env.TAG }}
 
 jobs:
   build-and-deploy:
@@ -43,15 +43,15 @@ jobs:
         run: |
           # If your function app project is not located in your repository's root
           # Please change the path to your directory for docker build
-          docker build . -t ${{ CONTAINER }}
-          docker push ${{ CONTAINER }}
+          docker build . -t ${{ env.CONTAINER }}
+          docker push ${{ env.CONTAINER }}
 
       - name: "Run Azure Functions Container Action"
         uses: Azure/functions-container-action@v1
         id: fa
         with:
-          app-name: ${{ APP_NAME }}
-          image: ${{ CONTAINER }}
+          app-name: ${{ env.APP_NAME }}
+          image: ${{ env.CONTAINER }}
       #- name: 'use the published functionapp url in upcoming steps'
       #  run: |
       #    echo "${{ steps.fa.outputs.app-url }}"
