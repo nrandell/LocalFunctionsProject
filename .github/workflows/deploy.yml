@@ -18,9 +18,11 @@ env:
   IMAGE: azurefunctionsimage
   TAG: latest
   APP_NAME: nick-container
-  CONTAINER: ${NAMESPACE}/${IMAGE}:${TAG}
 
 jobs:
+  env:
+    CONTAINER: ${NAMESPACE}/${IMAGE}:${TAG}
+
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
