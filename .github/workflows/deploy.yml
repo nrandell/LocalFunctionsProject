@@ -21,9 +21,6 @@ env:
 
 jobs:
   build-and-deploy:
-    env:
-      CONTAINER: "${{ env.NAMESPACE}}/${{ env.IMAGE }}:${{ env.TAG }}"
-
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout GitHub Action"
@@ -41,6 +38,8 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
       - name: "Compose Customized Docker Image"
+        env:
+          CONTAINER: "${{ env.NAMESPACE}}/${{ env.IMAGE }}:${{ env.TAG }}"
         shell: bash
         run: |
           # If your function app project is not located in your repository's root
@@ -49,6 +48,8 @@ jobs:
           docker push ${CONTAINER}
 
       - name: "Run Azure Functions Container Action"
+        env:
+          CONTAINER: "${{ env.NAMESPACE}}/${{ env.IMAGE }}:${{ env.TAG }}"
         uses: Azure/functions-container-action@v1
         id: fa
         with:
